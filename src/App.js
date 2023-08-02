@@ -1,14 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-function HelloWorld() {
-  return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  );
-}
+import HelloWorld from './HelloWorld';
 function App() {
   return <HelloWorld />;
-}
+};
 
 export default App;
