@@ -28,7 +28,7 @@ React allows developers to build SPAs.
 ## Starting to use React on my projects   
    
 ### First install React using:   
-```npx create-react-app my-app```  
+```npx create-react-app``` "name of the app" 
   
 Updating your build tooling is typically a daunting and time-consuming task. When new versions of Create React App are released, you can upgrade using a single command:   
 ```npm install react-scripts@latest```  
@@ -77,8 +77,27 @@ Props can be used to pass data, or functions, from one component to another.
 React State is?
 React State is a JavaScript object that stores a component's dynamic data and determines the component's behavior. React State is mutable.
 
-### Throubleshooting
-## Git 
+# Miselanious
+### Git CLI   
+```$ git init```
+```$ git add .```   
+```$ git commit -m "type a message"```   
+```$ git remote add "origin"```  
+   - ```$ git remote add kevincobos https://github.com/kevincobos/front-end-basic-react```  
+   - ```$ git push -u kevincobos main```   
 
+```$ git push``` 
+
+### Create new branch using CLI
+```$ git branch A```   
+```$ git checkout A```
+create new branch B and commit on it   
+```$ git checkout -b B```    
+```$ git commit -am "commit on branch B"```    
+   
+go back to branch A   
+```$ git checkout A```       
+```$ git commit -am "commit on branch A"```
+   
 Note:   
 ```I use copilot to help me to write this readme file.```
