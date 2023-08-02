@@ -70,7 +70,7 @@ Add this at the end of the file that you are exporting
 Add this to inporting file    
 <samp> import HelloWorld from "./HelloWorld"; </samp>    
 
-![React Function](/img/n);
+![React Function](/img/newComponent.png);
 
 
 For a component to render something on the page, it needs to return it as one or more JSX elements.
