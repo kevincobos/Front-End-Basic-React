@@ -1,5 +1,9 @@
 # Front-End-Basic-React
 
+## Introduction
+### Why I'm writing this document?
+I'm writing this document as a reference for future projects and to help me remember the basic concepts of React.
+
 ## React
 React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.    
 -  React can be used with a combination of other JavaScript libraries or frameworks, such as Angular JS in MVC.   
@@ -50,10 +54,40 @@ React Icons Include popular icons in your React projects easily with react-icons
 # Principles of React Components 
 ## React Components
 Components are independent and reusable bits of code. They serve the same purpose as JavaScript functions, but work in isolation and returns HTML via a render function.   
-
 Components come in two types, Class components and Function components.   
 Functional components are reusable blocks of code that act like a JavaScript function and you can pass data from one component to another using props.   
-Data flow is one-directional which means that a parent component can send the same data to one or more child components, but it's not possible to communicate from the child components back to the parent component using props.   
+Data flow is one-directional which means that a parent component can send the same data to one or more child components, but it's not possible to communicate from the child components back to the parent component using props.    
+
+React Components can be stateful or stateless.
+Example of a stateless component:   
+```
+function App() {
+  return (
+    <div>
+      <h1>This component is rendering text and also uses a variable {variable}</h1>
+      <h1>this becomes a stateless component</h1>
+    </div>
+  )
+}
+```
+Example of a stateful component: Bellow we can see a example 
+```   
+  function App() {
+    return (
+      <h1>
+        This text is not going to change, so this is a exaple of a stateless component.
+      </h1>
+    )
+  }
+```
+Thanks to ES6 Array Destructuring, we can use props as a parameter and then use the individual props as variables.   
+Example of array destructuring:   
+```
+var fruits = ["Banana", "Orange", "Apple", "Mango"];   
+
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+const [first, second, third, fourth] = fruits;
+```
 
 ## Create a React Component
 A React component is a function or a class which optionally accepts input and returns a React element (typically via JSX which gets compiled to a createElement invocation).
@@ -72,7 +106,6 @@ Add this to inporting file
 <samp> import HelloWorld from "./HelloWorld"; </samp>    
 
 ![React Function](/img/newComponent.png);
-
 
 For a component to render something on the page, it needs to return it as one or more JSX elements.
 
@@ -194,8 +227,6 @@ function App() {
 }
 ```   
 
-
-
 ### If Statements and For Loops inside JSX
 You can use an if statement in the curly braces to show or hide an element. You can also use the ternary operator condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
 
@@ -216,10 +247,196 @@ ternary operator:
   name === "Kevin" ? "Yes, it is Kevin" : "I don't know this person"
 }
 ```
+### React evets and event handlers
+React events are written in camelCase syntax: onClick instead of onclick. React event handlers are written inside curly braces: onClick={shoot} instead of onClick="shoot()". React event handlers are passed with an event object argument: onClick={(event) => this.shoot(event)}. Arrow functions allow you to pass arguments to event handlers: onClick={() => this.shoot("Goal")}.   
+
+In React, the rule is to avoid manipulating the DOM directly as much as possible. Instead, setup everything declaratively, meaning that you describe updates to React and let it figure out the rest. React uses a virtual DOM to manage the state of the actual DOM. React only updates the necessary parts of the DOM when a component's state changes. This makes React fast.
+Remember not to invoke a function when passing it as a prop.  
+For example, this will not work: <code>onClick={shoot()}</code>   
+It should be: <code>onClick={shoot}</code> The problem with this is that it will call the shoot function immediately when the component renders, and shoot the football every time the component re-renders. Instead, we want to pass the function itself, without running it.
+
+Example of a event handler:   
+``` <button onClick={shoot}>Take the shot!</button> ```    
+
+Example of a event handler with arguments:   
+``` <button onClick={() => this.shoot("Goal")}>Take the shot!</button> ```   
+
+Handling events using inline anonymous ES5 functions:    
+```
+<button onClick={function() { console.log('example') }}>
+  Click me
+</button>
+```
+Handling events using inline anonymous ES6 arrow functions:   
+``` 
+<button onClick={() => console.log('example')}>
+  Click me
+</button>
+```
+Handling events using class methods:   
+```
+class LoggingButton extends React.Component {
+  handleClick() { console.log('this is:', this);}
+
+  render() {
+    // This syntax ensures `this` is bound within handleClick
+    return (
+      <button onClick={() => console.log('example')}>
+        Click me
+      </button>
+    );
+  }
+}
+```
+Handling events using class fields:   
+```   
+class LoggingButton extends React.Component { 
+  // This syntax ensures `this` is bound within handleClick.
+  // Warning: this is *experimental* syntax.
+  handleClick = () => {
+    console.log('this is:', this);
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        Click me
+      </button>
+    );
+  }
+}
+```
+
+Handaling events using separate functions:   
+```
+function App() {
+  function shoot() {
+    alert("Great Shot!");
+  }
+  return (
+    <button onClick={shoot}>Take the shot!</button>
+  );
+}
+```
+
+Handaling events using separate functions with arguments:   
+```
+function App() {
+  function shoot(player, distance) {
+    alert(player + " kicked the ball " + distance + " meters")
+  }
+  return (
+    <button onClick={shoot.bind(this, "Kevin", 45)}>Take the shot!</button>
+  );
+}
+```
+
+Handaling events using separate functions expressions:   
+```
+function App() {
+  const shoot = () => {
+    alert("Great Shot!");
+  }
+  return (
+    <button onClick={shoot}>Take the shot!</button>
+  );
+}
+```
+
+Handaling events using separate functions expressions with arguments:   
+``` 
+function App() {
+  const shoot = (player, distance) => {
+    alert(player + " kicked the ball " + distance + " meters")
+}
+  return (<button onClick={() => shoot("Kevin", 45)}>Take the shot!</button>);
+}
+```
+
+### React Hooks
+Hooks are a new addition in React 16.8. Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes. Hooks provide access to imperative escape hatches and don’t require you to learn complex functional or reactive programming techniques. Hooks let you always use functions instead of having to constantly switch between functions, classes, higher-order components, and render props. Hooks let you reuse stateful logic without changing your component hierarchy.   
+React Hooks can be call only from the top level of a function component and only from React functions. React Hooks can not be call from a regular function or a class component.
+
+### Destructure Name Convention
+If the count is the name of the variable the convention is to use the same name for the function that updates the variable, the only difference is that the function name starts with the word set.
+``` 
+import React, { useState } from "react" 
+const [count, setCount] = useState(0);
+```  
+
+### useState Hook   
+The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. The first entry is the current state and the second entry is a function that allows us to update the state.
+Example of useState Hook:   
+
+``` 
+// count is the current state, setCount is the function that allows us to update the statee   
+
+
+import React, { useState } from "react" 
+const [count, setCount] = useState(0);
+```   
+
+### useEffect Hook   
+The useEffect hook is a special function that takes a function as an argument. The function that we pass to the useEffect hook will run after every render of the component.   
+The useEffect hook is similar to the componentDidMount and componentDidUpdate lifecycle methods in React class components.  
+The useEffect hook can be used to perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.
+Example of useEffect Hook:   
+``` import React, { useState, useEffect } from "react" ```
+### useContext Hook   
+The useContext hook is a special function that takes a context object as an argument and returns the current context value for that context.
+Example of useContext Hook:   
+``` import React, { useContext } from "react" ```
+### useReducer Hook   
+The useReducer hook is a special function that takes a reducer function and an initial state as arguments and returns an array of two entries. The first entry is the current state and the second entry is a dispatch function that allows us to update the state.
+Example of useReducer Hook:   
+``` import React, { useReducer } from "react" ```
+### useRef Hook   
+The useRef hook is a special function that takes an initial value as an argument and returns a mutable object with a current property that is initialized to the initial value. The useRef hook is used to access the DOM nodes or React elements. The useRef hook is similar to the createRef method in React class components. The useRef hook can be used to access the DOM nodes or React elements, focus an input field, measure the size or position of a DOM node, etc.
+Example of useRef Hook:   
+``` import React, { useRef } from "react" ```
+
+## Parent Child Data Flow   
+### State Data
+State is the place where the data comes from. We should always try to make our state as simple as possible and minimize the number of stateful components. If we have, for example, ten components that need data from the state, we should create one container component that will keep the state for all of them.
+
+### Props Data
+Props are how components talk to each other. They are passed down from a parent component to a child component. Props data is read-only, which means that data coming from the parent should not be changed by child components. Props are used to pass data, or functions, from one component to another. Data with props are being passed in a uni-directional flow. (one way from parent to child)
 
 
 
-# Miselanious
+Example of parent child data flow:   
+```
+funtion AppInformation(props) {
+  return (
+    <div>
+      <Header username={props.username} />
+      <Greeting age={props.age} />
+    </div>
+  )
+}
+const data = {
+  name: "Kevin",
+  age: 30
+}
+function App() {
+  return (
+    <div>
+      <AppInformation 
+        userName={data.name}
+        age={data.age} 
+      />
+    </div>
+  )
+}
+```
+![Parent Child Data Flow](/img/parentChildDataFlow.png)
+
+## Programming Principles
+### Don't Repeat Yourself <b>(DRY)</b>
+Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy. The DRY principle is stated as "Every piece of knowledge must have a single, unambiguous, authoritative representation within a system". When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. Besides using methods and functions, we can also use loops to avoid repeating ourselves.
+
+
+## Miselanious
 ### Git CLI   
 ```$ git init```   
 ```$ git add .```   
@@ -241,5 +458,6 @@ go back to branch A
 ```$ git checkout A```       
 ```$ git commit -am "commit on branch A"```
    
-Note:   
-```I use copilot to help me writing this readme file.```
+
+### Disclaimer  
+``` I use GitHub Copilot to help me writing this readme file. ```
