@@ -369,11 +369,19 @@ The useState hook is a special function that takes the initial state as an argum
 Example of useState Hook:   
 
 ``` 
-// count is the current state, setCount is the function that allows us to update the statee   
-
-
 import React, { useState } from "react" 
-const [count, setCount] = useState(0);
+
+funtion App() {
+  // count is the current state, we use this to access the current state   
+  //setCount is the function that allows us to update the state   
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Change!</button>
+    </div>
+  )
+}
 ```   
 
 ### useEffect Hook   
@@ -402,8 +410,6 @@ State is the place where the data comes from. We should always try to make our s
 ### Props Data
 Props are how components talk to each other. They are passed down from a parent component to a child component. Props data is read-only, which means that data coming from the parent should not be changed by child components. Props are used to pass data, or functions, from one component to another. Data with props are being passed in a uni-directional flow. (one way from parent to child)
 
-
-
 Example of parent child data flow:   
 ```
 funtion AppInformation(props) {
@@ -431,9 +437,69 @@ function App() {
 ```
 ![Parent Child Data Flow](/img/parentChildDataFlow.png)
 
+## React State Management
+State management is the process of maintaining the state of a React app. Using APIs like setState(), useState(), useReducer(), useContext(), etc. we can manage the state of a React app, so an API provides a predefined way to manage the state of a React app.
+
+### Context API
+The Context API is a React API that allows us to manage the state of a React app. The Context API is a way to pass data through the component tree without having to pass props down manually at every level. 
+Example of Context API:   
+```
+import React from "react";
+const MealContext = React.createContext();
+const todayMeals = ["Beans", "Rice", "Meat"];
+
+const MealProvider = ({children}) => {
+
+  const [meals, setMealsList] = React.useState(todayMeals);
+
+  return (
+    <MealsContext.Provider value={{meals}}>
+      {children}
+    </MealsContext.Provider>
+  );
+};
+
+export const useMealsListContex = () => React.useContext(MealsContext);
+export default MealProvider;
+```
+
+```
+inport { useMealsListContex } from "../providers/MealContext";
+
+const MealsList = () => {
+  const { meals } = useMealsContext();
+  return (
+    <div>
+      <h1>Meals List using Context API</h1>
+        {meals.map((meal, index) => (
+          <h2 key={index}>{meal}</h2>
+        ))}
+    </div>
+  );
+};
+
+```
+
+```
+import { useMealsListContex } from "./providers/MealContext";
+
+const Counter = () => {
+  const { meals } = useMealsListContex();
+
+  return (
+    <div>
+      <h3> Number of meals today: {meals.length} </h3>
+    </div>
+  );
+}
+
+```
+
 ## Programming Principles
-### Don't Repeat Yourself <b>(DRY)</b>
-Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy. The DRY principle is stated as "Every piece of knowledge must have a single, unambiguous, authoritative representation within a system". When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. Besides using methods and functions, we can also use loops to avoid repeating ourselves.
+### Don't Repeat Yourself (<b>DRY</b>)
+Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy. 
+When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. 
+Besides using methods and functions, we can also use loops to avoid repeating ourselves.
 
 
 ## Miselanious
