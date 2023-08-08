@@ -60,7 +60,7 @@ Data flow is one-directional which means that a parent component can send the sa
 
 React Components can be stateful or stateless.
 Example of a stateless component:   
-```
+```javascript
 function App() {
   return (
     <div>
@@ -71,7 +71,7 @@ function App() {
 }
 ```
 Example of a stateful component: Bellow we can see a example 
-```   
+```javascript
   function App() {
     return (
       <h1>
@@ -82,7 +82,7 @@ Example of a stateful component: Bellow we can see a example
 ```
 Thanks to ES6 Array Destructuring, we can use props as a parameter and then use the individual props as variables.   
 Example of array destructuring:   
-```
+```javascript
 var fruits = ["Banana", "Orange", "Apple", "Mango"];   
 
 const fruits = ["Banana", "Orange", "Apple", "Mango"];
@@ -130,7 +130,9 @@ The following JavaScript code ```{2===3}``` will render this <samp> false </samp
 A common pattern in React is for a component to return multiple elements. Fragments <code> <></> </code> let you group a list of children without adding extra nodes to the DOM.
 
 Example of a fragment:
-```return(<> content here </>);```   
+```javascript
+return(<> content here </>);
+```   
    
 ### note:   
 don't forget we can't use class in react, we have to use className.   
@@ -151,7 +153,7 @@ Arrow functions are a new way to write anonymous function expressions in JavaScr
 Using const is safer than using var, because a function expression is always constant value. You can only omit the return keyword and the curly brackets if the function is a single statement. Because of this, it might be a good habit to always keep them:   
 
 Regular function declaration:   
-```
+```javascript
 function XFunction(props) {
     return (
         <ul>
@@ -161,7 +163,7 @@ function XFunction(props) {
 };
 ```
 Regular function expression:   
-```
+```javascript
 const XFunction = function(props) {
     return (
         <ul>
@@ -172,7 +174,7 @@ const XFunction = function(props) {
 ```
 Arrow function expressions:   
 
-```
+```javascript
 const XFunction = (props) => { return (
     <ul>
         <li>{props.first}</li>
@@ -181,7 +183,7 @@ const XFunction = (props) => { return (
 };
 ```    
 or   
-```
+```javascript
 const XFunction = props => { return (
     <ul>
         <li>{props.first}</li>
@@ -193,7 +195,7 @@ const XFunction = props => { return (
 ### Expressions as Props
 You can pass any JavaScript expression as a prop, by surrounding it with curly braces.   
 Example:   
-```
+```javascript
 function App() {
   return (
     <div>
@@ -207,7 +209,7 @@ function App() {
 ### Enbeded Atributes
 You can embed JavaScript expressions in your JSX by wrapping them in curly braces.    
 Example:   
-```
+```javascript
 function App() {
   const date = new Date()
   const hours = date.getHours()
@@ -232,7 +234,7 @@ You can use an if statement in the curly braces to show or hide an element. You 
 
 Example of a ternary operator:   
 regular if statement:   
-```
+```javascript
 {
   if (name === "Kevin"){
     return "Yes, it is Kevin"
@@ -242,7 +244,7 @@ regular if statement:
 }
 ```   
 ternary operator:
-```
+```javascript
 {
   name === "Kevin" ? "Yes, it is Kevin" : "I don't know this person"
 }
@@ -256,25 +258,29 @@ For example, this will not work: <code>onClick={shoot()}</code>
 It should be: <code>onClick={shoot}</code> The problem with this is that it will call the shoot function immediately when the component renders, and shoot the football every time the component re-renders. Instead, we want to pass the function itself, without running it.
 
 Example of a event handler:   
-``` <button onClick={shoot}>Take the shot!</button> ```    
+``` javascript
+<button onClick={shoot}>Take the shot!</button> 
+```    
 
 Example of a event handler with arguments:   
-``` <button onClick={() => this.shoot("Goal")}>Take the shot!</button> ```   
+``` javascript
+<button onClick={() => this.shoot("Goal")}>Take the shot!</button> 
+```   
 
 Handling events using inline anonymous ES5 functions:    
-```
+```javascript
 <button onClick={function() { console.log('example') }}>
   Click me
 </button>
 ```
 Handling events using inline anonymous ES6 arrow functions:   
-``` 
+``` javascript
 <button onClick={() => console.log('example')}>
   Click me
 </button>
 ```
 Handling events using class methods:   
-```
+```javascript
 class LoggingButton extends React.Component {
   handleClick() { console.log('this is:', this);}
 
@@ -289,7 +295,7 @@ class LoggingButton extends React.Component {
 }
 ```
 Handling events using class fields:   
-```   
+```javascript 
 class LoggingButton extends React.Component { 
   // This syntax ensures `this` is bound within handleClick.
   // Warning: this is *experimental* syntax.
@@ -308,7 +314,7 @@ class LoggingButton extends React.Component {
 ```
 
 Handaling events using separate functions:   
-```
+```javascript
 function App() {
   function shoot() {
     alert("Great Shot!");
@@ -320,7 +326,7 @@ function App() {
 ```
 
 Handaling events using separate functions with arguments:   
-```
+```javascript
 function App() {
   function shoot(player, distance) {
     alert(player + " kicked the ball " + distance + " meters")
@@ -332,7 +338,7 @@ function App() {
 ```
 
 Handaling events using separate functions expressions:   
-```
+```javascript
 function App() {
   const shoot = () => {
     alert("Great Shot!");
@@ -344,7 +350,7 @@ function App() {
 ```
 
 Handaling events using separate functions expressions with arguments:   
-``` 
+```javascript
 function App() {
   const shoot = (player, distance) => {
     alert(player + " kicked the ball " + distance + " meters")
@@ -359,7 +365,7 @@ React Hooks can be call only from the top level of a function component and only
 
 ### Destructure Name Convention
 If the count is the name of the variable the convention is to use the same name for the function that updates the variable, the only difference is that the function name starts with the word set.
-``` 
+```javascript
 import React, { useState } from "react" 
 const [count, setCount] = useState(0);
 ```  
@@ -368,7 +374,7 @@ const [count, setCount] = useState(0);
 The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. The first entry is the current state and the second entry is a function that allows us to update the state.
 Example of useState Hook:   
 
-``` 
+``` javascript
 import React, { useState } from "react" 
 
 funtion App() {
@@ -389,19 +395,27 @@ The useEffect hook is a special function that takes a function as an argument. T
 The useEffect hook is similar to the componentDidMount and componentDidUpdate lifecycle methods in React class components.  
 The useEffect hook can be used to perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.
 Example of useEffect Hook:   
-``` import React, { useState, useEffect } from "react" ```
+```javascript
+import React, { useState, useEffect } from "react" 
+```
 ### useContext Hook   
 The useContext hook is a special function that takes a context object as an argument and returns the current context value for that context.
 Example of useContext Hook:   
-``` import React, { useContext } from "react" ```
+```javascript
+import React, { useContext } from "react" 
+```
 ### useReducer Hook   
 The useReducer hook is a special function that takes a reducer function and an initial state as arguments and returns an array of two entries. The first entry is the current state and the second entry is a dispatch function that allows us to update the state.
 Example of useReducer Hook:   
-``` import React, { useReducer } from "react" ```
+```javascript
+import React, { useReducer } from "react" 
+```
 ### useRef Hook   
 The useRef hook is a special function that takes an initial value as an argument and returns a mutable object with a current property that is initialized to the initial value. The useRef hook is used to access the DOM nodes or React elements. The useRef hook is similar to the createRef method in React class components. The useRef hook can be used to access the DOM nodes or React elements, focus an input field, measure the size or position of a DOM node, etc.
 Example of useRef Hook:   
-``` import React, { useRef } from "react" ```
+```javascript
+import React, { useRef } from "react" 
+```
 
 ## Parent Child Data Flow   
 ### State Data
@@ -411,7 +425,7 @@ State is the place where the data comes from. We should always try to make our s
 Props are how components talk to each other. They are passed down from a parent component to a child component. Props data is read-only, which means that data coming from the parent should not be changed by child components. Props are used to pass data, or functions, from one component to another. Data with props are being passed in a uni-directional flow. (one way from parent to child)
 
 Example of parent child data flow:   
-```
+```javascript
 funtion AppInformation(props) {
   return (
     <div>
@@ -442,8 +456,9 @@ State management is the process of maintaining the state of a React app. Using A
 
 ### Context API
 The Context API is a React API that allows us to manage the state of a React app. The Context API is a way to pass data through the component tree without having to pass props down manually at every level. 
-Example of Context API:   
-```
+Example of Context API:  
+
+```javascript
 import React from "react";
 const MealContext = React.createContext();
 const todayMeals = ["Beans", "Rice", "Meat"];
@@ -463,7 +478,7 @@ export const useMealsListContex = () => React.useContext(MealsContext);
 export default MealProvider;
 ```
 
-```
+```javascript
 inport { useMealsListContex } from "../providers/MealContext";
 
 const MealsList = () => {
@@ -477,10 +492,9 @@ const MealsList = () => {
     </div>
   );
 };
-
 ```
 
-```
+```javascript
 import { useMealsListContex } from "./providers/MealContext";
 
 const Counter = () => {
@@ -492,7 +506,19 @@ const Counter = () => {
     </div>
   );
 }
+```
 
+## Navigation
+### React Router
+React Router is a collection of navigational components that compose declaratively with your application. Whether you want to have bookmarkable URLs for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering--so take your pick!
+### Installation
+```linux
+npm install react-router-dom
+```
+### Usage
+```javascript
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 ```
 
 ## Programming Principles
@@ -526,4 +552,13 @@ go back to branch A
    
 
 ### Disclaimer  
-``` I use GitHub Copilot to help me writing this readme file. ```
+``` I have used GitHub Copilot to help me writing this readme file. ```
+
+### References
+- [React](https://reactjs.org/)
+- [React Router](https://reactrouter.com/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+- [React Context API](https://reactjs.org/docs/context.html)
+- [GitHub Markup Language](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)
