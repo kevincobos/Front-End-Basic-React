@@ -6,6 +6,30 @@
   border-radius: 10px;
 }
 
+* {
+  font-family: sans-serif;
+}
+
+nav {
+  opacity: 0.95;
+  filter: blur(1px);
+  position: fixed;
+  width: 100%; 
+  top: 0;
+  background-color: rgba(20, 0, 20, 0.7);
+  background: #ee9972;
+  padding: 20px;
+}
+
+nav a {
+  opacity: 1;
+  filter: blur(0px);
+  color: #edefee;
+  text-decoration: none;
+  font-size: 20px;
+  margin-right: 20px;
+}
+
 .App {
   text-align: center;
 }

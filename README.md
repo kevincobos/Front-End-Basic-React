@@ -14,12 +14,11 @@ React is a JavaScript library for building user interfaces. It is maintained by 
 - React is scalable - large applications with data that changes over time without reloading the page is where React performs best. 
 
 ### React Main Features
- 
-- a JavaScript library for building user interfaces.
-- a tool for building SPAs (Single Page Applications).
-- a tool for handling the view layer for web and mobile apps.
-- a tool for building fast and scalable front-end applications.
-- a tool for building UI components that can be used on their own or combined with other components to build complex UIs.
+- JavaScript library for building user interfaces.
+- Tool for building SPAs (Single Page Applications).
+- Tool for handling the view layer for web and mobile apps.
+- Tool for building fast and scalable front-end applications.
+- Tool for building UI components that can be used on their own or combined with other components to build complex UIs.
 
 SPA's are web applications that load a single HTML page and dynamically update that page as the user interacts with the app. SPAs use AJAX and HTML5 to create fluid and responsive web apps, without constant page reloads. However, this means much of the work happens on the client side, in JavaScript.  
 React allows developers to build SPAs.
@@ -29,28 +28,30 @@ React JSX, JSX stands for JavaScript XML. JSX allows us to write HTML in React. 
 ## Starting to use React on my projects   
    
 ### First install React using:   
-```npx create-react-app "name of the app"``` 
+```CLI 
+npx create-react-app "name of the app"
+``` 
   
 Updating your build tooling is typically a daunting and time-consuming task. When new versions of Create React App are released, you can upgrade using a single command:   
-```npm install react-scripts@latest```  
+```CLI 
+npm install react-scripts@latest
+```  
 
 ## Create a new react-app using:
 ```npm init react-app "App name"``` <samp> or </samp> ```npx create-react-app .``` <samp> where "." means the current directory. </samp> 
 ### Run the new app using:
 If diferent directory then use ```cd  "app name"```   
-Then ```npm start```  
- 
-```npm install react-router-dom```   
-React Router is a collection of navigational components that compose declaratively with your application. Whether you want to have bookmarkable URLs for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering--so take your pick!
-   
-What is react router?   
-React router is a routing library built on top of the react which is used to create the routing in react apps. It is used to create routes in the react app. It maintains the mapping between the url and the components. It keeps your UI in sync with the URL. It has a simple API with powerful features like lazy code loading, dynamic route matching, and location transition handling built right in. It is used to create the single page application. It is used to create the navigation between the components. It is used to create the multiple pages in the react app. It is used to create the dynamic routing in the react app. It is used 
+Then ```npm start```   
 
-```npm install react-bootstrap bootstrap```  
-React-Botstrap is a library with a complete re-implementation of Bootstrap components using React. It has no dependency on either bootstrap.js or jQuery. If you have React setup and React-Bootstrap installed you have everything you need.   
-
-```npm install react-icons --save```  
-React Icons Include popular icons in your React projects easily with react-icons, which utilizes ES6 imports that allows you to include only the icons that your project is using.   
+### Additional packages to consider installing
+<b>React-Botstrap</b> is a library with a complete re-implementation of Bootstrap components using React. It has no dependency on either bootstrap.js or jQuery. If you have React setup and React-Bootstrap installed you have everything you need. 
+```CLI 
+npm install react-bootstrap bootstrap
+```   
+<b>React Icons</b> include popular icons in your React projects easily with react-icons, which utilizes ES6 imports that allows you to include only the icons that your project is using.  
+```CLI 
+npm install react-icons --save
+```    
 # Principles of React Components 
 ## React Components
 Components are independent and reusable bits of code. They serve the same purpose as JavaScript functions, but work in isolation and returns HTML via a render function.   
@@ -58,9 +59,9 @@ Components come in two types, Class components and Function components.
 Functional components are reusable blocks of code that act like a JavaScript function and you can pass data from one component to another using props.   
 Data flow is one-directional which means that a parent component can send the same data to one or more child components, but it's not possible to communicate from the child components back to the parent component using props.    
 
-React Components can be stateful or stateless.
-Example of a stateless component:   
-```javascript
+React Components can be stateful or stateless.   
+Example of a stateless component:
+```javascript   
 function App() {
   return (
     <div>
@@ -232,9 +233,9 @@ function App() {
 ### If Statements and For Loops inside JSX
 You can use an if statement in the curly braces to show or hide an element. You can also use the ternary operator condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
 
-Example of a ternary operator:   
-regular if statement:   
+Example of a ternary operator:     
 ```javascript
+//regular if statement: 
 {
   if (name === "Kevin"){
     return "Yes, it is Kevin"
@@ -243,12 +244,48 @@ regular if statement:
   }
 }
 ```   
-ternary operator:
+Ternary operator:
 ```javascript
+//Using ternary operator
 {
   name === "Kevin" ? "Yes, it is Kevin" : "I don't know this person"
 }
 ```
+Applying conditional rendering using the ternary operator
+```javascript
+function App() {
+  const date = new Date()
+  const hours = date.getHours() 
+  
+  return (
+    {hours >= 12 && hours < 17
+      ? <Daytime />  
+      : <Nighttime /> 
+    }
+  )
+}
+```
+Code bellow show something that is posible too using (logical && operator)
+```javascript
+let renderLine = true;
+
+false && console.log('This will never show');
+true && console.log('This will always show');
+renderLine && console.log('This will always show');
+```
+Conditional Component Rendering
+```javascript
+//Depending on what the value of isLoggedIn is, either the LoginButton or the LogoutButton component will be rendered.
+function LogInOutButton(props) {
+  const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+      return <LogoutButton />;
+    } else {
+    return <LoginButton />;
+  }
+}
+```
+
 ### React evets and event handlers
 React events are written in camelCase syntax: onClick instead of onclick. React event handlers are written inside curly braces: onClick={shoot} instead of onClick="shoot()". React event handlers are passed with an event object argument: onClick={(event) => this.shoot(event)}. Arrow functions allow you to pass arguments to event handlers: onClick={() => this.shoot("Goal")}.   
 
@@ -507,48 +544,219 @@ const Counter = () => {
   );
 }
 ```
+## Adding Images
+```JavaScript
+import example1 from "./assests/images/react.png";
+function App() {
+  return (
+    <div>
+      <img src={example1} alt="example1" />
+    </div>
+  );
+}
+```
+```javascript
+function App() {
+  const example2 = "https://coboskevin.com/assests/images/react.png";
+  return (
+    <div>
+      <img src={example2} alt="example2" />
+    </div>
+  );
+}
+```
+```javascript
+  return (
+    <div>
+      <img src={require("./assests/images/react.png")} alt="example3" />
+    </div>
+  );
+```  
 
-## Navigation
+## Adding Videos
+```javascript
+import example1 from "./assests/videos/example1.mp4";
+function App() {
+  return (
+    <div>
+      <video width="320" height="240" controls>
+        <source src={example1} type="video/mp4" />
+      </video>
+    </div>
+  );
+}
+```
+### Adding Video with React-Player "Third Party Library"
+First install react-player using:   
+```CLI
+npm install react-player
+```
+Then import react-player using this code on the App.js file:   
+
+```javascript
+//React component for playing a variety of URLs, including file paths, YouTube, Facebook, Twitch, etc.
+// Check the documentation for more info: https://www.npmjs.com/package/react-player
+import ReactPlayer from "react-player";
+
+// Line bellow is the same as the one above, the difference is that the code bellow reduce your bundle size
+import ReactPlayer from 'react-player/youtube'
+
+function App() {
+  return (
+    <div>
+      <ReactPlayer url="https://www.youtube.com/watch?v=rNWaLeZ5TV0" />
+    </div>
+  );
+}
+```
+
+## Navigation   
 ### React Router
-React Router is a collection of navigational components that compose declaratively with your application. Whether you want to have bookmarkable URLs for your web app or a composable way to navigate in React Native, React Router works wherever React is rendering--so take your pick!
-### Installation
+What is react router?   
+React router is a routing library built on top of the react which is used to create the routing in react apps.   
+Main venefits of react router:
+- It is used to create routes in the react app. 
+- It maintains the mapping between the url and the components. 
+- It keeps your UI in sync with the URL. 
+- It is used to create the single page application. 
+- It is used to create the navigation between the components. 
+- It is used to create the multiple pages in the react app. 
+- It is used to create the dynamic routing in the react app.  
+- It has a simple API with powerful features like lazy code loading, dynamic route matching, and location transition handling built right in. 
+
+### Installing React Router
 ```linux
 npm install react-router-dom
 ```
+![React Router](/img/installing-react-router.png)
 ### Usage
+To use we need to add this to the index.js file
 ```javascript
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-```
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+// this line bellow is new
+import { BrowserRouter } from 'react-router-dom'; 
 
-## Programming Principles
-### Don't Repeat Yourself (<b>DRY</b>)
-Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy. 
-When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. 
-Besides using methods and functions, we can also use loops to avoid repeating ourselves.
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>  // this is the new line
+      <App />
+    </BrowserRouter> // this is the new line
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+```
+On the App.js file we need to add this:
+```javascript
+/*Code*/
+import {Routes, Route} from 'react-router-dom';
+
+funtion App() {
+
+  /*Code*/
+
+  return (
+    <div className="App">
+      <nav className="nav">
+        <Link to="/" className="nav-item">Home</Link>
+        <Link to="/about" className="nav-item">About</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </div>
+  );
+}
+```
+### Webpack
+Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
+
+More benefits of webpack:
+- Smart way to bundle assets
+- Better performance
+- Better developer experience
+- It converts modern JS code into older versions of JavaScript, this process is known as <b> transpiling </b>. 
+- It can process your SCSS code into the regular CSS.
+- It can produce various kinds of files based on rules and templates.
+
 
 
 ## Miselanious
-### Git CLI   
-```$ git init```   
-```$ git add .```   
-```$ git commit -m "type a message"```   
-```$ git remote add "origin"```  
-   - ```$ git remote add kevincobos https://github.com/kevincobos/front-end-basic-react```  
-   - ```$ git push -u kevincobos main```   
+### Important Terms
+Isomorphic apps are apps that can run both on the client and the server. This approach is also referred to as universal rendering.  
 
-```$ git push``` 
+Lazy loading is a technique for loading JavaScript code and other assets on demand — that is, only when they are needed for rendering a portion of a page. Lazy loading is a great way to optimize your site or application, because it helps you reduce the amount of initial JavaScript sent to the browser by splitting your code into multiple bundles, and then loading them on demand.   
+
+SSR (Server-side rendering) is the process of rendering web pages on a server and passing them to the browser (client-side), instead of rendering them in the browser.   
+
+Production mode is an optimized version of the development mode. It is used to create a production build of the app.   
+
+Development mode is used to run the app locally. It is used to create a development build of the app.    
+
+Don't Repeat Yourself (<b>DRY</b>)
+Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy.   
+When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. 
+Besides using methods and functions, we can also use loops to avoid repeating ourselves.   
+
+Dependency graph is a directed graph representing dependencies of several objects towards each other. It is used to model and solve scheduling problems.   
+
+
+
+### Git CLI   
+```CLI 
+git init
+```   
+```CLI 
+git add .
+```   
+```CLI 
+git commit -m "type a message"
+```   
+```CLI 
+git remote add "origin"
+```  
+```CLI 
+git remote add kevincobos https://github.com/kevincobos/front-end-basic-react
+   ```  
+```CLI 
+git push -u kevincobos main
+```   
+
+```CLI 
+git push
+``` 
 
 ### Create new branch using CLI
-```$ git branch A```   
-```$ git checkout A```
+```CLI 
+git branch A
+```   
+```CLI 
+git checkout A
+```
 create new branch B and commit on it   
-```$ git checkout -b B```    
-```$ git commit -am "commit on branch B"```    
+```CLI 
+git checkout -b B
+```    
+```CLI 
+git commit -am "commit on branch B"
+```    
    
 go back to branch A   
-```$ git checkout A```       
-```$ git commit -am "commit on branch A"```
+```CLI 
+git checkout A
+```       
+```CLI 
+git commit -am "commit on branch A"
+```
    
 
 ### Disclaimer  
@@ -562,3 +770,4 @@ go back to branch A
 - [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [React Context API](https://reactjs.org/docs/context.html)
 - [GitHub Markup Language](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)
+- [React Player](https://www.npmjs.com/package/react-player)
