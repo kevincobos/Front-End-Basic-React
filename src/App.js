@@ -9,6 +9,7 @@ import ReactPlayer from 'react-player';
 import Home from './Home';
 import About from './About';
 import {Routes, Route, Link} from 'react-router-dom';
+import AWS_CSA from './AWS_CSA';
 
 function App() {
   //return <HelloWorld />;
@@ -17,6 +18,7 @@ function App() {
     <div className="App">
       <nav className="nav">
         <Link to="/" className="nav-item">Home</Link>
+        <Link to="/AWS_CSA" className="nav-item">AWS</Link>
         <Link to="/about" className="nav-item">About</Link>
       </nav>
       <h1>React player</h1>
@@ -27,7 +29,9 @@ function App() {
       />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/AWS_CSA" element={<AWS_CSA />} />
         <Route path="/about" element={<About />} />
+
       </Routes>
       <div className='card'>
         <h1>Task: Add three UsingProps </h1>

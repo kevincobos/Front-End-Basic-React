@@ -93,7 +93,7 @@ const [first, second, third, fourth] = fruits;
 ## Create a React Component
 A React component is a function or a class which optionally accepts input and returns a React element (typically via JSX which gets compiled to a createElement invocation).
 
-![React Function](/img/functionComponent.png);   
+![React Function](https://github.com/kevincobos/front-end-basic-react/blob/main/img/functionComponent.png?raw=true);   
 
 ## Importing components
 - Build a new file by right-clicking on the src folder, then in the right-click contextual menu that appears, clicking on the New File command. Name the file "HelloWorld.js".   
@@ -688,7 +688,28 @@ More benefits of webpack:
 - It can process your SCSS code into the regular CSS.
 - It can produce various kinds of files based on rules and templates.
 
+## Markdown Language 
+Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is widely used in blogging, instant messaging, online forums, collaborative software, documentation pages, and readme files.
+### react-markdown
+React component for rendering Markdown with react-markdown.
+```linux
+npm install react-markdown
+```   
+```javascript 
+import React from 'react';
+import ReactMarkdown from 'react-markdown';
+```
 
+### react-showdown
+React component for rendering Markdown with showdown.   
+```linux
+npm install react-showdown
+```
+```javascript
+import React from 'react';
+import ReactShowdown from 'react-showdown';
+
+```
 
 ## Miselanious
 ### Important Terms
@@ -771,3 +792,5 @@ git commit -am "commit on branch A"
 - [React Context API](https://reactjs.org/docs/context.html)
 - [GitHub Markup Language](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-and-highlighting-code-blocks)
 - [React Player](https://www.npmjs.com/package/react-player)
+- [React Markdown](https://www.npmjs.com/package/react-markdown)
+- [React Showdown](https://www.npmjs.com/package/react-showdown)
