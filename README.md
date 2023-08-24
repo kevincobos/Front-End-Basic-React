@@ -1,4 +1,15 @@
 # Front-End-Basic-React
+## Table of Contents
+- [Introduction](#introduction)
+  * [Why I'm writing this document?](#why-i-m-writing-this-document-) 
+- [React](#react)
+  * [React Main Features](#react-main-features)
+- [Starting to use React on my projects](#starting-to-use-react-on-my-projects)   
+  * [First install React using:](#first-install-react-using-)   
+  * [Updating your build tooling is typically a daunting and time-consuming task. When new versions of Create React App are released, you can upgrade using a single command:](#updating-your-build-tooling-is-typically-a-daunting-and-time-consuming-task-when-new-versions-of-create-react-app-are-released--you-can-upgrade-using-a-single-command-)   
+  * [Create a new react-app using:](#create-a-new-react-app-using-)   
+  * [Run the new app using:](#run-the-new-app-using-)   
+  * [Additional packages to consider installing](#additional-packages-to-consider-installing)
 
 ## Introduction
 ### Why I'm writing this document?

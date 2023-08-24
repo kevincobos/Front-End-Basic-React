@@ -31,7 +31,7 @@ class  AWS_CSA extends Component {
         const { page } = this.state;
         console.log(page);
         return (
-            <div className="content">
+            <div className="content" style={{textAlign: 'left'}}>
             <ReactMarkdown children={page} />
             </div>
             
