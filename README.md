@@ -106,7 +106,7 @@ Add this at the end of the file that you are exporting
 Add this to inporting file    
 <samp> import HelloWorld from "./HelloWorld"; </samp>    
 
-![React Function](/img/newComponent.png);
+![React Function](https://github.com/kevincobos/front-end-basic-react/blob/main/img/newComponent.png?raw=true);
 
 For a component to render something on the page, it needs to return it as one or more JSX elements.
 
@@ -115,10 +115,10 @@ Props are arguments passed into React components. Props are passed to components
 Props can be used to pass data, or functions, from one component to another.  
    
 This is how you pass data from one component to another as an attribute:
-![React Props Code](/img/propsComponentsCode.png)    
+![React Props Code](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponentsCode.png?raw=true)    
 
 The Browser Render:
-![React Props Browser Render](/img/propsComponents.png)   
+![React Props Browser Render](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponents.png?raw=true)   
 
 ### JavaScript Expressions in JSX
 You can write any JavaScript expression inside the curly braces in JSX. Each React element is a JavaScript object that you can store in a variable or pass around in your program. You can use an if statement in the curly braces to show or hide an element. You can also use the ternary operator condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
@@ -141,7 +141,7 @@ don't forget we can't use class in react, we have to use className.
 Html <code> class=" " </code>   
 JSX <code> className=" " </code> 
 
-![Example of use of className](/img/using-className.png)
+![Example of use of className](https://github.com/kevincobos/front-end-basic-react/blob/main/img/using-className.png?raw=true)
 
 ### CSS Styling
 React does not have a built-in way to style components, but there are several libraries that allow us to use CSS in React.   
@@ -486,7 +486,7 @@ function App() {
   )
 }
 ```
-![Parent Child Data Flow](/img/parentChildDataFlow.png)
+![Parent Child Data Flow](https://github.com/kevincobos/front-end-basic-react/blob/main/img/parentChildDataFlow.png?raw=true)
 
 ## React State Management
 State management is the process of maintaining the state of a React app. Using APIs like setState(), useState(), useReducer(), useContext(), etc. we can manage the state of a React app, so an API provides a predefined way to manage the state of a React app.
@@ -628,7 +628,7 @@ Main venefits of react router:
 ```linux
 npm install react-router-dom
 ```
-![React Router](/img/installing-react-router.png)
+![React Router](https://github.com/kevincobos/front-end-basic-react/blob/main/img/installing-react-router.png?raw=true)
 ### Usage
 To use we need to add this to the index.js file
 ```javascript
