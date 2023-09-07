@@ -129,7 +129,7 @@ This is how you pass data from one component to another as an attribute:
 ![React Props Code](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponentsCode.png?raw=true)    
 
 The Browser Render:
-![React Props Browser Render](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponents.png?raw=true)   
+![React Props Browser Render](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponents.png?raw=true?width=auto&height=auto)   
 
 ### JavaScript Expressions in JSX
 You can write any JavaScript expression inside the curly braces in JSX. Each React element is a JavaScript object that you can store in a variable or pass around in your program. You can use an if statement in the curly braces to show or hide an element. You can also use the ternary operator condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
@@ -688,6 +688,107 @@ funtion App() {
   );
 }
 ```
+## Layouts
+Layouts are important because they provide a framework that site designers can use to structure a site's content. They also help designers and programmers work together more efficiently by providing a common language and a means of separating concerns. 
+### Grid Layout
+A grid layout is a way of structuring content on a website. It uses a grid of rows and columns to give order and structure to a website's content. Grid layouts can be used to arrange blog posts, products, testimonials, and any other content that needs to be organized in a clean and easy-to-read way. Grid layouts are a popular choice for websites because they are easy to use and can be customized to fit any design. Grid layouts are also responsive, meaning they will adapt to different screen sizes and devices. 
+
+### React Bootstrap
+React Bootstrap is a library with a complete re-implementation of Bootstrap components using React. It has no dependency on either bootstrap.js or jQuery. If you have React setup and React-Bootstrap installed you have everything you need.
+
+Adding bootstrap to react app using npm:   
+```linux
+npm install react-bootstrap bootstrap
+```
+Using react bootstrap:   
+```javascript
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
+function App() {
+  return (
+    <Container>
+      <Row>
+        <Col>1 of 1</Col>
+      </Row>
+      <Row>
+        <Col>1 of 2</Col>
+        <Col>2 of 2</Col>
+      </Row>
+      <Row>
+        <Col>1 of 3</Col>
+        <Col>2 of 3</Col>
+        <Col>3 of 3</Col>
+      </Row>
+    </Container>
+  );
+}
+```
+
+### Transforming Lists  
+When we need to transform a list of data, we can use the map() method to transform each item in the list into a new item, also when using the map() method, you will need to define a new variable, as it always returns a new array. This will allow us to fetched data from a third party or external provider.
+
+Example of transforming lists:
+```javascript
+// In javascript we can use map to transform a list
+const data = [
+    {
+        id:"1",
+        title:"Milk",
+        price:50
+    }, 
+    {
+        id:"2",
+        title:"Orange",
+        price:1.50
+    },
+    {
+        id:"3",
+        title:"Apple",
+        price:2.50
+    }
+];
+function ListUse() {
+    const listItem = data.map(values => {
+        const itemText = '${values.title} - ${values.price}';
+        return <li>itemText </li>
+    });
+    return (
+        <div>
+            <h1> {listItem} </h1>
+        </div>
+    );
+}
+
+export default ListUse;
+```
+
+Bellow is the same example but using React:
+```javascript
+function checkCalories(calToCheck) {
+  const maxCalories = 100;
+  return calToCheck.calories <= maxCalories;
+}
+function DessertsList(props) {
+  // This code gets some data array from a react component
+  const tempDesserts = props.dataFromParentComponent;
+  const tempSortedDesserts = tempDesserts.sort(
+    (a, b) => a.calories - b.calories);
+  const tempLowCal = tempSortedDesserts.filter(checkCalories);
+  const returningData = tempLowCal.map(newDesserts => {
+    const newItems = `${newDesserts.name} - ${newDesserts.calories}  calories`;
+    return <li>{newItems}</li>;
+  });
+  return(
+    <div>
+      <ul>{returningData}</ul>
+    </div>
+  );
+}
+
+export default DessertsList;
+```
+
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
 
@@ -723,27 +824,34 @@ import ReactShowdown from 'react-showdown';
 ```
 
 ## Miselanious
+### Important to remember
+- **\`** is used to interpolate a variable inside a string, also remember **\`** is not the same as **'** or **"**
+
 ### Important Terms
-Isomorphic apps are apps that can run both on the client and the server. This approach is also referred to as universal rendering.  
+- **Isomorphic App's** can run both on the client and the server. This approach is also referred to as universal rendering.  
 
-Lazy loading is a technique for loading JavaScript code and other assets on demand — that is, only when they are needed for rendering a portion of a page. Lazy loading is a great way to optimize your site or application, because it helps you reduce the amount of initial JavaScript sent to the browser by splitting your code into multiple bundles, and then loading them on demand.   
+- **Lazy loading** is a technique for loading JavaScript code and other assets on demand, that is only when they are needed for rendering a portion of a page. Lazy loading is a great way to optimize your site or application, because it helps you reduce the amount of initial JavaScript sent to the browser by splitting your code into multiple bundles, and then loading them on demand.   
 
-SSR (Server-side rendering) is the process of rendering web pages on a server and passing them to the browser (client-side), instead of rendering them in the browser.   
+- **SSR (Server-side rendering)** is the process of rendering web pages on a server and passing them to the browser (client-side), instead of rendering them in the browser.   
 
-Production mode is an optimized version of the development mode. It is used to create a production build of the app.   
+- **Production mode** is an optimized version of the development mode. It is used to create a production build of the app.   
 
-Development mode is used to run the app locally. It is used to create a development build of the app.    
+- **Development mode** is used to run the app locally. It is used to create a development build of the app.    
 
-Don't Repeat Yourself (<b>DRY</b>)
+- **DRY (Don't Repeat Yourself)**
 Is a principle of software development aimed at reducing repetition of software patterns, replacing it with abstractions or using data normalization to avoid redundancy.   
 When the DRY principle is applied successfully, a modification of any single element of a system does not require a change in other logically unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync. 
 Besides using methods and functions, we can also use loops to avoid repeating ourselves.   
 
-Dependency graph is a directed graph representing dependencies of several objects towards each other. It is used to model and solve scheduling problems.   
+- **Dependency graph** is a directed graph representing dependencies of several objects towards each other. It is used to model and solve scheduling problems.   
 
+- **JSX** is a syntax extension to JavaScript. It is used with React to describe what the user interface should look like.
 
 
 ### Git CLI   
+Basic commands to use git in the command line interface. Adding a new repository to GitHub using CLI.  
+First navigate to the folder you want to add to GitHub using CLI and then use the following commands:
+
 ```CLI 
 git init
 ```   
