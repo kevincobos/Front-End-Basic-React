@@ -1,4 +1,4 @@
-# Front-End-Basic-React
+# Front End - Basic React
 ## Table of Contents
 - [Introduction](#introduction)
   * [Why I'm writing this document?](#why-i-m-writing-this-document-) 
@@ -771,13 +771,13 @@ function checkCalories(calToCheck) {
 }
 function DessertsList(props) {
   // This code gets some data array from a react component
-  const tempDesserts = props.dataFromParentComponent;
-  const tempSortedDesserts = tempDesserts.sort(
+  const tempData = props.dataFromParentComponent;
+  const tempSortedData = tempData.sort(
     (a, b) => a.calories - b.calories);
-  const tempLowCal = tempSortedDesserts.filter(checkCalories);
-  const returningData = tempLowCal.map(newDesserts => {
-    const newItems = `${newDesserts.name} - ${newDesserts.calories}  calories`;
-    return <li>{newItems}</li>;
+  const tempLowValue = tempSortedData.filter(checkCalories);
+  const returningData = tempLowValue.map(newEditData => {
+    const newItemsToShow = `${newEditData.name} - ${newEditData.calories}  calories`;
+    return <li>{newItemsToShow}</li>;
   });
   return(
     <div>
@@ -788,6 +788,79 @@ function DessertsList(props) {
 
 export default DessertsList;
 ```
+
+### Keys on React
+Keys help React identify which items have changed, are added, or are removed, also keys instructs the treatment of elements when an update occurs, avoiding unnecessary recreations. Keys should be given to the elements inside the array to give the elements a stable identity. Keys used within arrays should be unique among their siblings. However, they don’t need to be globally unique. We can use the key prop on the element itself instead of putting it inside a separate attribute. When we use the key attribute on an element, React uses the key attribute to track the elements in the list.
+Using keys attribute on React we can avoid the following error:   
+```javascript
+Warning: Each child in a list should have a unique "key" prop.
+```
+Example of using keys on React:
+```javascript
+function ListUse() {
+    const listItem = data.map(values => {
+        const itemText = '${values.title} - ${values.price}';
+        return <li key={values.id}>itemText </li>
+    });
+    return (
+        <div>
+            <h1> {listItem} </h1>
+        </div>
+    );
+}
+```
+This example is a little bit less complex, but it shows how to use keys work:
+```javascript
+// Using Keys when we update the list of items
+// React will know which items have changed, added, or removed
+// without the key attribute, React will treat the list as a single unit and every 
+// item will be updated when a change occurs
+<ul>
+  <li key='book'>book</li>
+  <li key='page'>page</li>
+</ul>
+
+// In this case, React will know that the first item has been added and the second 
+// and third items has stayed the same
+<ul>
+  <li key='title'>title</li>
+  <li key='book'>book</li>
+  <li key='page'>page</li>
+</ul>
+```
+### Controlled Components
+In a controlled component, form data is handled by a React component. The alternative is uncontrolled components, where form data is handled by the DOM itself. To write an uncontrolled component, instead of writing an event handler for every state update, you can use a ref to get form values from the DOM.   
+In order to create a controlled component, we need to use a combination of local state and the value prop.
+Example of a controlled component:
+```javascript
+import React, { useState } from "react";
+onChange(event){
+  setValue(event.target.value);
+}
+
+
+<form onSubmit={handleSubmit}>
+
+</form>
+  handleSubmite(event){
+    validate(value);
+    event.preventDefault();
+  }
+```
+Example of a uncontrolled component:
+```javascript
+import React, { useRef } from "react";
+
+const inputRef = useRef();
+<form onSubmit={handleSubmit}>
+  <input ref={inputRef} type="text" />
+</form>
+  handleSubmite(event){
+    validate(inputRef.current.value);
+    event.preventDefault();
+  }
+```
+
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
