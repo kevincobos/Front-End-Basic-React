@@ -1013,6 +1013,60 @@ function App() {
 This is an example of the code above, checking if the password is valid
 ![React Router](/img/form_example.png)
 
+### React Props and State
+Props and state are related. The state of one component will often become the props of a child component. Props are passed to the child within the render method of the parent as the second argument to React.createElement() or, if you're using JSX, the more familiar tag attributes. State are managed within the component
+
+Props is a short term for properties and they are used to pass data between React components. Props are immutable, which means that their data cannot be changed. Props are used to pass data, or functions, from one component to another. Data with props are being passed in a uni-directional flow. (one way from parent to child)
+
+State is a special React object that stores a component's dynamic data and determines the component's behavior. State is mutable, which means that its data can be changed. State is used to store data that changes over time, or that comes from a user input. State is used to manage the data that changes in a React app.
+
+#### Pasing data using Context
+Props drilling problem, when we have a lot of nested components, we need to pass props from the top level component to the bottom level component, this is called props drilling. To avoid this problem we can use the Context API. The Context API is a React API that allows us to manage the state of a React app. The Context API is a way to pass data through the component tree without having to pass props down manually at every level.
+
+Example of Context API: This is the UserContext.js file
+```javascript
+import { createContext } from "react";
+
+const UserContext = createContext(Undefine);
+export const UserProvider = ({children}) => {
+  const [user] = useState({
+    name: "Kevin",
+    age: 30,
+  });
+  return <UserContext.Provider value={{user}}></UserContext.Provider>
+};
+export const useUser = () => useContext(UserContext);
+```
+
+Example of Context API: This is the App.js file
+```javascript
+import { UserProvider } from "./context/UserContext";
+
+...
+
+const LoggedUser = () => {
+  const {user} = useUser();
+  return {
+    // This is the way to access the data from the context
+    // The important part is within the curly braces
+    <p>
+      Hello <span className="UserName"> {user.name}, you are {user.age} years old.
+    </p>
+  }
+}
+
+...
+
+function Root() {
+  return (
+    <UserProvider>
+      <App />
+    </UserProvider>
+  );
+}
+Export default Root;
+```
+
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
 
