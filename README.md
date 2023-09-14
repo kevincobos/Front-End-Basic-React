@@ -1010,6 +1010,8 @@ function App() {
 }
 
 ```
+This is an example of the code above, checking if the password is valid
+![React Router](/img/form_example.png)
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
