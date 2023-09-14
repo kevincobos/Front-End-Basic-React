@@ -1027,7 +1027,7 @@ Example of Context API: This is the UserContext.js file
 ```javascript
 import { createContext } from "react";
 
-const UserContext = createContext(Undefine);
+const UserContext = createContext(undefined);
 export const UserProvider = ({children}) => {
   const [user] = useState({
     name: "Kevin",
@@ -1038,7 +1038,7 @@ export const UserProvider = ({children}) => {
 export const useUser = () => useContext(UserContext);
 ```
 
-Example of Context API: This is the App.js file
+Example of Context API: I'm using the context on this App.js file
 ```javascript
 import { UserProvider } from "./context/UserContext";
 
@@ -1124,6 +1124,8 @@ Besides using methods and functions, we can also use loops to avoid repeating ou
 - **Dependency graph** is a directed graph representing dependencies of several objects towards each other. It is used to model and solve scheduling problems.   
 
 - **JSX** is a syntax extension to JavaScript. It is used with React to describe what the user interface should look like.
+
+- **Deterministic** is an algorithm that, given a particular input, will always produce the same output, with the underlying machine always passing through the same sequence of states. Deterministic algorithms are by far the most studied and familiar kind of algorithm, as well as one of the most practical, since they can be run on real machines efficiently.
 
 
 ### Git CLI   
