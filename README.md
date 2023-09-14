@@ -849,18 +849,167 @@ onChange(event){
 ```
 Example of a uncontrolled component:
 ```javascript
-import React, { useRef } from "react";
+const Form = () => { 
+ return ( 
+   <div> 
+     <input type="input text" /> 
+   </div> 
+ ); 
+}; 
+```
+Getting the value of an uncontrolled component:
+```javascript
+//In the code below, you can see how a ref is used to 
+//access the value of the input whenever the form is submitted.
+const Form = () => { 
+ const inputRef = useRef(null); 
 
-const inputRef = useRef();
-<form onSubmit={handleSubmit}>
-  <input ref={inputRef} type="text" />
-</form>
-  handleSubmite(event){
-    validate(inputRef.current.value);
-    event.preventDefault();
+ const handleSubmit = () => { 
+   const inputValue = inputRef.current.value; 
+   // Do something with the value 
+ } 
+ return ( 
+   <form onSubmit={handleSubmit}> 
+     <input ref={inputRef} type="text" /> 
+   </form> 
+ ); 
+}; 
+```
+Now lets see how to use a controlled component, with the same example as above:
+```javascript
+// In the code example bellow we can see every time you type a new character, the 
+// handleChange function is executed. It receives the new value of the input, and
+// then it sets it in the state. 
+const Form = () => { 
+ const [value, setValue] = useState(""); 
+
+ const handleChange = (e) => { 
+   setValue(e.target.value) 
+ } 
+
+ return ( 
+   <form> 
+     <input 
+       value={value} 
+       onChange={handleChange} 
+       type="text" 
+     /> 
+   </form> 
+ ); 
+}; 
+```
+#### Avoid default form behavior
+To avoid the default behavoior of a form, we need to use the preventDefault() method.
+```javascript
+function App() {
+  const {name, setName} = useState('');
+  const handleSubmit = (event) => {
+    event.preventDefault();  // <====== this line is important
+    console.log('You clicked submit.');
   }
+  return (
+    <div className="App">
+      <form onSubmit={handleSubmit}>
+        <fieldset>
+          <div className="Field">
+            <label htmlFor="name">Name:</label>
+            <input 
+              type="text"
+              placeholder="name" 
+              name="name" 
+              value={name}
+              onChange={(event) => setName(event.target.value)} />
+          </div>          
+          <button type="submit">Submit</button>        
+        </fieldset>
+      </form>
+    </div>
+  );
+}
 ```
 
+### Something to remember when working with Forms on React
+```JavaScript 
+... 
+
+// this is use to show an error message when the password is less than 8 characters
+const PasswordErrorMessage = () => {
+  return (
+    <p className="FieldError">Password should have at least 8 characters</p>
+  );
+};
+
+... 
+
+function App() {
+
+  // To be able to modify this value, we need to use: 
+  // setPasswrod({ ...password, value: e.target.value }); 
+  // setPassword({ ...password, isTouched: true }); 
+  const [password, setPassword] = useState({
+    value: "",
+    isTouched: false,
+  });
+
+ 
+  // The important part is that we need to don't use the 
+  // the if statement inside the return statement instead we need to use it
+  // to write the condition of the return statement 
+  const getIsFormValid = () => {
+    // Implement this function
+    return ( 
+      (firstName != "") &&
+      (role.value != 0) &&
+      password.value.length >= 5
+    );
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    ...
+
+    return;
+  };
+
+  return (
+      <div className="App">
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <input
+              placeholder="Password"
+              type="password"
+              placeholder="password"
+              name="password" 
+              value={password.value}
+              onChange={(event) => { 
+                setPassword({ ...password, value: event.target.value }); 
+              }} 
+              onBlur={() => { 
+                setPassword({ ...password, isTouched: true }); 
+              }} 
+            />
+
+            // if the password is less than 8 characters and is 
+            // touched, then show the error message.
+            // The important part is that we need to don't use the 
+            // the if statement inside the return statement
+            <div>
+              {                
+                password.isTouched && password.value.length < 8 ? (
+                <PasswordErrorMessage /> 
+                ) : null
+              }
+            </div>
+          <button type="submit" disabled={!getIsFormValid()}>
+            Create account
+          </button>
+        </form>
+    </div>
+  );
+}
+
+```
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
