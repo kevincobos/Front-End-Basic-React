@@ -414,14 +414,15 @@ React Hooks can be call only from the top level of a function component and only
 ### Destructure Name Convention
 If the count is the name of the variable the convention is to use the same name for the function that updates the variable, the only difference is that the function name starts with the word set.
 ```javascript
+// Count is the name of the variable
+// setCount is the name of the function that updates the variable
 import React, { useState } from "react" 
 const [count, setCount] = useState(0);
 ```  
 
 ### useState Hook   
-The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. The first entry is the current state and the second entry is a function that allows us to update the state.
-Example of useState Hook:   
-
+The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. The first entry is the current state and the second entry is a function that allows us to update the state.   
+Example of correct use of useState Hook, that is using the stateUpdate function:
 ``` javascript
 import React, { useState } from "react" 
 
@@ -437,6 +438,31 @@ funtion App() {
   )
 }
 ```   
+#### Updating a stete Object the correct way
+The sujested way to update a state object is to use the spread operator.  
+**( ... )** is the spread operator. It takes all the properties of the object and copies them into the new object.
+
+```javascript
+import { useState } from "react"; 
+ 
+export default function App() { 
+  const [mainObject, setMainObject] = useState({ message: "Original object" }); 
+  console.log(mainObject, setMainObject); 
+ 
+  function updateMainObject() { 
+    const tempMainObject = {...mainObject};            // <-- Spread operator
+    tempMainObject.message = "Original object and updated"; 
+    setMainObject(tempMainObject); 
+  } 
+ 
+  return ( 
+    <div> 
+      <h1>{mainObject.message}</h1> 
+      <button onClick={updateMainObject}>Update object</button> 
+    </div> 
+  ); 
+} 
+```
 
 ### useEffect Hook   
 The useEffect hook is a special function that takes a function as an argument. The function that we pass to the useEffect hook will run after every render of the component.   
@@ -1066,6 +1092,18 @@ function Root() {
 }
 Export default Root;
 ```
+
+
+
+### React Rendering Process
+React uses a declarative paradigm that makes it easier to reason about your application and aims to be both efficient and flexible. It designs simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable and easier to debug. React can also render on the server using Node and power mobile apps using React Native.
+
+#### React.memo
+React.memo is a higher order component. It’s similar to React.PureComponent but for function components instead of classes. If your function component renders the same result given the same props, you can wrap it in a call to React.memo for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
+
+#### React.PureComponent
+React.PureComponent is similar to React.Component. The difference between them is that React.Component doesn’t implement shouldComponentUpdate(), but React.PureComponent implements it with a shallow prop and state comparison.
+
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
