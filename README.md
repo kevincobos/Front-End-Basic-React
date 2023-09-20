@@ -1,15 +1,46 @@
 # Front End - Basic React
 ## Table of Contents
-- [Introduction](#introduction)
-  * [Why I'm writing this document?](#why-i-m-writing-this-document-) 
+- [Introduction](#introduction)  
 - [React](#react)
-  * [React Main Features](#react-main-features)
 - [Starting to use React on my projects](#starting-to-use-react-on-my-projects)   
-  * [First install React using:](#first-install-react-using-)   
-  * [Updating your build tooling is typically a daunting and time-consuming task. When new versions of Create React App are released, you can upgrade using a single command:](#updating-your-build-tooling-is-typically-a-daunting-and-time-consuming-task-when-new-versions-of-create-react-app-are-released--you-can-upgrade-using-a-single-command-)   
-  * [Create a new react-app using:](#create-a-new-react-app-using-)   
-  * [Run the new app using:](#run-the-new-app-using-)   
-  * [Additional packages to consider installing](#additional-packages-to-consider-installing)
+- [Create a new react-app using](#create-a-new-react-app-using)
+- [Additional packages to consider installing](#additional-packages-to-consider-installing)
+- [Principles of React Components](#principles-of-react-components)
+- [React Components](#react-components)
+- [Importing components](#importing-components)
+- [React Props](#react-props)
+- [JavaScript Expressions in JSX](#javascript-expressions-in-jsx)
+- [Fragments](#fragments)
+- [CSS Styling](#css-styling)
+- [Arrow Functions on React](#arrow-functions-on-react)
+- [Expressions as Props](#expressions-as-props)
+- [Enbeded Atributes](#enbeded-atributes)
+- [If Statements and For Loops inside JSX](#if-statements-and-for-loops-inside-jsx)
+- [React evets and event handlers](#react-evets-and-event-handlers)
+- [React Hooks](#react-hooks)
+- [Destructure Name Convention](#destructure-name-convention)
+- [useState Hook](#usestate-hook)
+- [useEffect Hook](#useeffect-hook)
+- [useContext Hook](#usecontext-hook)
+- [useReducer Hook](#usereducer-hook)
+- [useRef Hook](#useref-hook)
+- [Data Fetching with React Hooks](#data-fetching-with-react-hooks)
+- [Parent Child Data Flow](#parent-child-data-flow)
+- [React State Management](#react-state-management)
+- [Context API](#context-api)
+- [useReducer Hook](#usereducer-hook)
+- [useRef Hook](#useref-hook)
+- [Data Fetching with React Hooks](#data-fetching-with-react-hooks)
+- [Adding Images](#adding-images)
+- [Adding Videos](#adding-videos)
+- [Navigation](#navigation)
+- [React Router](#react-router)
+- [Markdown Language](#markdown-language)
+
+
+- [Miscellaneous](#miscellaneous)
+- [Disclaimer](#disclaimer)
+- [References](#references)
 
 ## Introduction
 ### Why I'm writing this document?
@@ -408,8 +439,20 @@ function App() {
 ```
 
 ### React Hooks
-Hooks are a new addition in React 16.8. Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes. Hooks provide access to imperative escape hatches and don’t require you to learn complex functional or reactive programming techniques. Hooks let you always use functions instead of having to constantly switch between functions, classes, higher-order components, and render props. Hooks let you reuse stateful logic without changing your component hierarchy.   
-React Hooks can be call only from the top level of a function component and only from React functions. React Hooks can not be call from a regular function or a class component.
+Hooks are a new addition in React 16.8. Hooks are functions that let you “hook into” React state and lifecycle features from function components.   
+Hooks don’t work inside classes — they let you use React without classes.   
+Hooks provide access to imperative escape hatches and don’t require you to learn complex functional or reactive programming techniques.   
+Hooks let you always use functions instead of having to constantly switch between functions, classes, higher-order components, and render props.   
+Hooks let you reuse stateful logic without changing your component hierarchy.   
+React Hooks can be call only from the top level of a function component and only from React functions.   
+React Hooks can not be call from a regular function or a class component.
+
+#### Things to know about React Hooks:
+Only call Hooks at the top level. Don’t call Hooks inside loops, conditions, or nested functions.  
+We can call Hooks from React function components and not just any regular JavaScript function.
+We can make multiple calls to state or effect hooks.
+
+
 
 ### Destructure Name Convention
 If the count is the name of the variable the convention is to use the same name for the function that updates the variable, the only difference is that the function name starts with the word set.
@@ -446,7 +489,11 @@ The sujested way to update a state object is to use the spread operator.
 import { useState } from "react"; 
  
 export default function App() { 
-  const [mainObject, setMainObject] = useState({ message: "Original object" }); 
+  const [mainObject, setMainObject] = useState({ 
+    message: "Original object" 
+    place: "World"
+    activated: true,
+  }); 
   console.log(mainObject, setMainObject); 
  
   function updateMainObject() { 
@@ -454,24 +501,75 @@ export default function App() {
     tempMainObject.message = "Original object and updated"; 
     setMainObject(tempMainObject); 
   } 
+
+  function updateMainObjectArroFunc() { 
+    setGreeting(tempState => { 
+      return {...tempState, 
+        place: "Under world"
+        activated: false,
+      } 
+    }); 
+  } 
  
   return ( 
     <div> 
       <h1>{mainObject.message}</h1> 
+      <h1>{mainObject.place}</h1>
       <button onClick={updateMainObject}>Update object</button> 
+      {
+        mainObject.activated && <button onClick={updateMainObjectArroFunc}>
+          Hidding button
+        </button> 
+      }
     </div> 
   ); 
 } 
+```
+### Pure and Impure Functions in React
+A pure function is a function that **does not cause side effects**. A pure function is a function that does not modify the values passed to it.   
+Impure functions are functions that **have side effects**. A side effect is any change in the state of the program that can be observed outside the function itself.   
+For example, invoking console.log, fetch, geolocation or a function that modifies a global variable would be considered impure because it changes the state of the program outside of its own scope.  
+Example of pure and impure functions:
+
+```JavaScript
+// This is a pure function
+function sum(a, b) {
+  return a + b;
+}
+
+// This is a impure function
+function sum(a, b) {
+  return a + b + Math.random();
+}
+
 ```
 
 ### useEffect Hook   
 The useEffect hook is a special function that takes a function as an argument. The function that we pass to the useEffect hook will run after every render of the component.   
 The useEffect hook is similar to the componentDidMount and componentDidUpdate lifecycle methods in React class components.  
-The useEffect hook can be used to perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.
+The useEffect hook can be used to perform side effects in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, perform **side effects** in function components, fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.   
 Example of useEffect Hook:   
 ```javascript
 import React, { useState, useEffect } from "react" 
+function ShoppingCart(){
+  const total prop.count * prop.price;
+
+  // useEffect hook takes a function as an argument and a array, we can leave the
+  // array empty if we want the function to run after every render of the component.
+  useEffect(() => {
+    document.title = `Total: ${total}`,[];
+  });
+
+  // Not using this empty array may cause performance issues, especially if your 
+  // side effects are computationally intensive. 
+  useEffect(() => {
+    console.log(`Total: ${total}`),[];
+  });
+}
 ```
+React does not limit us to use the useEffect hook only once. We can use the useEffect hook as many times as we want.
+
+
 ### useContext Hook   
 The useContext hook is a special function that takes a context object as an argument and returns the current context value for that context.
 Example of useContext Hook:   
@@ -490,6 +588,36 @@ Example of useRef Hook:
 ```javascript
 import React, { useRef } from "react" 
 ```
+### Data Fetching with React Hooks
+The useEffect hook can be used to fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.   
+
+Keep in mind when working with React, fetching data from a third-party API is considered a side-effect, we need to use the useEffect hook to deal with using the Fetch API calls in React.   
+
+```javascript
+import { useState, useEffect } from "react"; 
+ 
+export default function App() { 
+  const [comingData, setComingData] = useState({}); 
+  useEffect(() => { 
+    fetch(`https://api.website.com/datasheet.json`) 
+      .then((response) => response.json()) 
+      .then((jsonData) => setComingData(jsonData.value)) 
+      .catch((error) => console.log(error)); 
+  }, []); 
+ 
+  return ( 
+    <> 
+      <h1>Coming Data</h1> 
+      <p>Code: {comingData.code}</p> 
+      <p>Symbol: {comingData.symbol}</p> 
+      <p>Rate: {comingData.rate}</p> 
+      <p>Description: {comingData.description}</p> 
+      <p>Rate Float: {comingData.rate_float}</p> 
+    </> 
+  ); 
+} 
+```
+
 
 ## Parent Child Data Flow   
 ### State Data
@@ -1139,7 +1267,7 @@ import ReactShowdown from 'react-showdown';
 
 ```
 
-## Miselanious
+## Miscellaneous
 ### Important to remember
 - **\`** is used to interpolate a variable inside a string, also remember **\`** is not the same as **'** or **"**
 
@@ -1231,3 +1359,6 @@ git commit -am "commit on branch A"
 - [React Player](https://www.npmjs.com/package/react-player)
 - [React Markdown](https://www.npmjs.com/package/react-markdown)
 - [React Showdown](https://www.npmjs.com/package/react-showdown)
+
+### [Go back to Table of Contents](#table-of-contents)
+  
