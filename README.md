@@ -464,6 +464,7 @@ const [count, setCount] = useState(0);
 ```  
 
 ### useState Hook   
+The useState hook is use on less complex data.
 The useState hook is a special function that takes the initial state as an argument and returns an array of two entries. The first entry is the current state and the second entry is a function that allows us to update the state.   
 Example of correct use of useState Hook, that is using the stateUpdate function:
 ``` javascript
@@ -577,16 +578,59 @@ Example of useContext Hook:
 import React, { useContext } from "react" 
 ```
 ### useReducer Hook   
-The useReducer hook is a special function that takes a reducer function and an initial state as arguments and returns an array of two entries. The first entry is the current state and the second entry is a dispatch function that allows us to update the state.
+The useReducer hook is best used on more complex data, specifically, arrays or objects.
+The useReducer hook is a special function that takes a reducer function and an initial state as arguments and returns an array of two entries. The first entry is the current state and the second entry is a dispatch function that allows us to update the state.   
+
 Example of useReducer Hook:   
 ```javascript
 import React, { useReducer } from "react" 
+
+function App() {
+  const [count, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case "add":
+        return state + 1;
+      case "minus":
+        return state - 1;
+      case "reset":
+        return 0;
+      default:
+        return state;
+    }
+  }, 0);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch({ type: "add" })}>Add!</button>
+      <button onClick={() => dispatch({ type: "minus" })}>Minus!</button>
+      <button onClick={() => dispatch({ type: "reset" })}>Reset!</button>
+    </div>
+  );
+}
 ```
+
+```javascript
+
+
+```
+
 ### useRef Hook   
-The useRef hook is a special function that takes an initial value as an argument and returns a mutable object with a current property that is initialized to the initial value. The useRef hook is used to access the DOM nodes or React elements. The useRef hook is similar to the createRef method in React class components. The useRef hook can be used to access the DOM nodes or React elements, focus an input field, measure the size or position of a DOM node, etc.
+The useRef hook can be used to access the DOM nodes or React elements, focus an input field, measure the size or position of a DOM node, etc.  
+
 Example of useRef Hook:   
+
 ```javascript
 import React, { useRef } from "react" 
+
+function App() {
+  const inputRef = useRef();
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={() => inputRef.current.focus()}>Focus!</button>
+    </div>
+  );
+}
 ```
 ### Data Fetching with React Hooks
 The useEffect hook can be used to fetch data from a server, set up event listeners, perform cleanup, update the document title, etc.   
@@ -605,7 +649,7 @@ export default function App() {
       .catch((error) => console.log(error)); 
   }, []); 
  
-  return ( 
+  return Object.keys(comingData).length > 0 ?( 
     <> 
       <h1>Coming Data</h1> 
       <p>Code: {comingData.code}</p> 
@@ -614,10 +658,66 @@ export default function App() {
       <p>Description: {comingData.description}</p> 
       <p>Rate Float: {comingData.rate_float}</p> 
     </> 
-  ); 
+  ):(
+    <h1>Downloading...</h1>
+  );
 } 
 ```
+### Custom Hooks
+A custom hook is simply a way to extract a piece of functionality that we can use again and again, whith custom hooks we can create a reusable, reliable and streamlined piece of functionality in our React apps.
 
+```JavaScript
+
+// Creating a custom hook
+function useFetch(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [url]);
+
+  return { data, loading, error };
+  export default useFetch;
+}
+
+// Using the custom hook
+function App() {
+  const { data, loading, error } = useFetch(
+    "https://api.website.com/datasheet.json"
+  );
+
+  if (loading) return <h1>Loading...</h1>;
+  if (error) return <h1>Error!</h1>;
+
+  return (
+    <>
+      <h1>Coming Data</h1>
+      <p>Code: {data.code}</p>
+      <p>Symbol: {data.symbol}</p>
+      <p>Rate: {data.rate}</p>
+      <p>Description: {data.description}</p>
+      <p>Rate Float: {data.rate_float}</p>
+    </>
+  );
+}
+```
+
+### JSX to an Element
+React converts the JSX tree to an element tree where each node is a plane object describing a component instance and then to a DOM tree, which is then rendered to the page. 
+
+Element tree  
+![Element tree](./img/element-tree.png)
 
 ## Parent Child Data Flow   
 ### State Data
@@ -1232,6 +1332,8 @@ React.memo is a higher order component. It’s similar to React.PureComponent bu
 #### React.PureComponent
 React.PureComponent is similar to React.Component. The difference between them is that React.Component doesn’t implement shouldComponentUpdate(), but React.PureComponent implements it with a shallow prop and state comparison.
 
+### Component composition with children
+In React, component composition is a natural pattern of the component model. It's how we build components from other components, of varying complexity and specialization through props. Component composition is one of React's powerful compositional patterns. It's a way to combine simple functions together to create complex functions. 
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
