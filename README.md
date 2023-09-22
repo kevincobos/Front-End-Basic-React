@@ -44,7 +44,8 @@
 
 ## Introduction
 ### Why I'm writing this document?
-I'm writing this document as a reference for future projects and to help me remember the basic concepts of React.
+I'm writing this document to help me remember somne basic concepts of React. The main idea is to keep adding more examples and code snippets for later reference as I learn more about the tools related to this technology.
+
 
 ## React
 React is a JavaScript library for building user interfaces. It is maintained by Facebook and a community of individual developers and companies.    
@@ -163,12 +164,29 @@ The Browser Render:
 ![React Props Browser Render](https://github.com/kevincobos/front-end-basic-react/blob/main/img/propsComponents.png?raw=true?width=auto&height=auto)   
 
 ### JavaScript Expressions in JSX
-You can write any JavaScript expression inside the curly braces in JSX. Each React element is a JavaScript object that you can store in a variable or pass around in your program. You can use an if statement in the curly braces to show or hide an element. You can also use the ternary operator condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
+You can write any JavaScript expression inside the curly braces in JSX. Each React element is a JavaScript object that you can store in a variable or pass around in your program. You can use an if statement in the curly braces to show or hide an element. You can also use the **ternary operator** condition ? true : false to show something. You can also use JavaScript expressions to embed a map() call in JSX. You can also use JavaScript expressions to embed a function call in JSX.   
 
 The following JavaScript code ```{'abc'+'def'}``` will render this <samp> abcdef </samp>   
 The following JavaScript code ```{2+3}``` will render this <samp> 5 </samp>   
 The following JavaScript code ```{2===3}``` will render this <samp> false </samp>   
 
+### Ternary Operators 
+The ternary operator is the only JavaScript operator that takes three operands. This operator is frequently used as a shortcut for the if statement.
+
+### Ternary Operator on React:   
+The ternary operator is a simplified conditional operator like if / else.   
+**Syntax:** condition ? \<expression if true\> : \<expression if false\>    
+  
+  ```javascript
+  //condition ? exprIfTrue : exprIfFalse
+  // Example
+  function getFee(isMember) {
+    return (isMember ? '$2.00' : '$10.00');
+  }
+
+  console.log(getFee(true));
+  // expected output: "$2.00"
+  ```
 ### Fragments
 A common pattern in React is for a component to return multiple elements. Fragments <code> <></> </code> let you group a list of children without adding extra nodes to the DOM.
 
@@ -1333,7 +1351,80 @@ React.memo is a higher order component. It’s similar to React.PureComponent bu
 React.PureComponent is similar to React.Component. The difference between them is that React.Component doesn’t implement shouldComponentUpdate(), but React.PureComponent implements it with a shallow prop and state comparison.
 
 ### Component composition with children
-In React, component composition is a natural pattern of the component model. It's how we build components from other components, of varying complexity and specialization through props. Component composition is one of React's powerful compositional patterns. It's a way to combine simple functions together to create complex functions. 
+In React, component composition is a natural pattern of the component model. It's how we build components from other components, of varying complexity and specialization through props. Component composition is one of React's powerful compositional patterns. It's a way to combine simple functions together to create complex functions.
+
+Example of component composition with children:
+```javascript
+const AlertMessage = ({ children }) => {
+  return (
+    <div className="alert alert-primary" role="alert">
+      {children}
+    </div>
+  );
+};
+
+const ContinueButton = (
+  <button className="btn btn-primary">Continue</button>
+);
+
+function App() {
+  return (
+    <div>
+      <h1>My Header</h1>      
+      <AlertMessage>
+        <h4>Showing message</h4>
+        <p>This is an alert message</p>
+        <ContinueButton />
+      </AlertMessage>
+    </div>
+  );
+}
+```
+### Manipulating children dynamically in JSX
+#### React.cloneElement()
+Using React.cloneElement() we can manipulate children dynamically in JSX. React.cloneElement() is used to clone and return a new React element using a given element as the starting point. The resulting element will have the original element’s props with the new props merged in shallowly. New children will replace existing children. key and ref from the original element will be preserved.   
+```JavaScript
+// the first argument is the element to clone, the second argument 
+// is an optional object of props to merge into the cloned element.
+React.cloneElement(element, [props]) 
+```
+Example of manipulating children dynamically in JSX using React.cloneElement():
+```javascript
+const AlertMessage = ({ children }) => {
+  const newChildren = React.cloneElement(children, {
+    style: { color: "red" },
+  });
+  return (
+    <div className="alert alert-primary" role="alert">
+      {newChildren}
+    </div>
+  );
+};
+```
+#### React.Children()
+Using React.Children() we can manipulate children dynamically in JSX. React.Children provides utilities for dealing with the this.props.children opaque data structure.   
+
+Example of manipulating children dynamically in JSX using React.Children():
+```javascript
+
+```
+#### React.Children.Map()
+
+Example of manipulating children dynamically in JSX using React.Children.Map():
+```javascript
+const AlertMessage = ({ children }) => {
+  const newChildren = React.Children.map(children, (child) => {
+    return React.cloneElement(child, {
+      style: { color: "red" },
+    });
+  });
+  return (
+    <div className="alert alert-primary" role="alert">
+      {newChildren}
+    </div>
+  );
+};
+```
 
 ### Webpack
 Webpack is a static module bundler for modern JavaScript applications. When webpack processes your application, it internally builds a dependency graph which maps every module your project needs and generates one or more bundles, which are static assets to serve your content from.
